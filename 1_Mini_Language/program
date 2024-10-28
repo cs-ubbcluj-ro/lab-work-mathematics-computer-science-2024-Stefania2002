@@ -1,0 +1,15 @@
+//sum of first K integers
+
+VAR
+    k, sum, i: INTEGER;
+BEGIN
+    sum := 0;
+    i := 1;
+    WHILE i <= k DO
+    BEGIN
+        sum := sum + i;
+        i := i + 1;
+    END;
+    WRITE(sum);
+END.
+
