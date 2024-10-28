@@ -1,67 +1,98 @@
-Part A: MiniLang Specification based on C
+Part A: MiniLang Specification based on Pascal
 
-Language Elements
+1. Language Definition
 
-Data Types:
-int: Integer type.
-float: Floating-point number type.
-struct: User-defined data type for creating custom structures.
+1.1 Alphabet:
 
-Reserved Words:
-int, float, struct
-if, else
-while, for
-return
-input, print
+Upper (A-Z) and lower case letters (a-z) of the English alphabet
 
-Operators:
-Arithmetic operators: +, -, *, /, %
-Relational operators: ==, !=, <, <=, >, >=
-Logical operators: &&, ||, !
-Assignment operator: =
+Underline character '_'
 
-Separators:
-; (statement terminator)
-{, } (block delimiters)
-(, ) (expression delimiters)
-, (separator in argument lists)
+Decimal digits (0-9)
 
-Identifiers:
-Must start with a letter or underscore, followed by letters, digits, or underscores.
-Case-sensitive.
-Examples: sum, _counter, is_prime
+1.2 Lexic:
 
-Constants:
-Integer constants: 0, 1, 10, 100, etc.
-Float constants: 3.14, 0.01, 2.718
+a. Special symbols:
 
-Syntax definition (BNF):
-<program> ::= <statement_list>
+Operators: + - * / := < <= = >=
 
-<statement_list> ::= <statement> ";" <statement_list> | <statement> ";"
+Separators: [ ] { } : ; space
 
-<statement> ::= <declaration> | <assignment> | <input_output> | <conditional> | <loop>
+Reserved words: array char const do else if int of program read then var while write
 
-<declaration> ::= <type> <identifier> | <type> <identifier> "=" <expression>
-<type> ::= "int" | "float" | "struct" <identifier>
+b. Identifiers:
 
-<assignment> ::= <identifier> "=" <expression>
+A sequence of letters and digits, starting with a letter
 
-<input_output> ::= "input" "(" <identifier> ")" | "print" "(" <expression> ")"
+Rule: identifier ::= letter | letter{letter}{digit}
 
-<conditional> ::= "if" "(" <expression> ")" "{" <statement_list> "}" ["else" "{" <statement_list> "}"]
+letter ::= "A" | "B" | ... | "Z"
 
-<loop> ::= "while" "(" <expression> ")" "{" <statement_list> "}" 
-         | "for" "(" <assignment> ";" <expression> ";" <assignment> ")" "{" <statement_list> "}"
+digit ::= "0" | "1" | ... | "9"
 
-<expression> ::= <term> | <term> <operator> <expression>
-<term> ::= <identifier> | <constant> | "(" <expression> ")"
-<operator> ::= "+" | "-" | "*" | "/" | "%" | "==" | "!=" | "<" | "<=" | ">" | ">=" | "&&" | "||"
+c. Constants:
 
-<identifier> ::= <letter> {<letter> | <digit> | "_"}
-<constant> ::= <integer_constant> | <float_constant>
-<integer_constant> ::= <digit> {<digit>}
-<float_constant> ::= <digit> {<digit>} "." <digit> {<digit>}
-<letter> ::= "a" | "b" | ... | "z" | "A" | "B" | ... | "Z" | "_"
-<digit> ::= "0" | "1" | ... | "9"
+Integer:
 
+Rule: noconst := +no | -no | no
+
+no := digit{no}
+
+Character:
+
+Rule: character := 'letter' | 'digit'
+
+String:
+
+Rule: constchar := "string"
+
+string := char{string}
+
+char := letter | digit
+
+2. Syntax:
+
+a. Syntactical rules:
+
+program ::= "VAR" decllist ";" cmpdstmt "."
+
+decllist ::= declaration | declaration ";" decllist
+
+declaration ::= IDENTIFIER ":" type
+
+type1 ::= "BOOLEAN" | "CHAR" | "INTEGER" | "REAL"
+
+arraydecl ::= "ARRAY" "[" nr "]" "OF" type1
+
+type ::= type1 | arraydecl
+
+cmpdstmt ::= "BEGIN" stmtlist "END"
+
+stmtlist ::= stmt | stmt ";" stmtlist
+
+stmt ::= simplstmt | structstmt
+
+simplstmt ::= assignstmt | iostmt
+
+assignstmt ::= IDENTIFIER ":=" expression
+
+expression ::= expression "+" term | term
+
+term ::= term "*" factor | factor
+
+factor ::= "(" expression ")" | IDENTIFIER
+
+iostmt ::= "READ" | "WRITE" "(" IDENTIFIER ")"
+
+structstmt ::= cmpdstmt | ifstmt | whilestmt
+
+ifstmt ::= "IF" condition "THEN" stmt ["ELSE" stmt]
+
+whilestmt ::= "WHILE" condition "DO" stmt
+
+condition ::= expression RELATION expression
+
+RELATION ::= "<" | "<=" | "=" | "<>" | ">=" | ">"
+
+
+   
