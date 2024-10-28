@@ -1,0 +1,19 @@
+Statements:
+
+The mini-language supports the following statements:
+
+Assignment: Assigns the result of an expression to an identifier.
+
+Example: IDENTIFIER := expression
+
+Input/Output: Reads from or writes to standard input/output.
+
+Example: READ(IDENTIFIER), WRITE(IDENTIFIER)
+
+Conditional: Executes a statement based on a condition.
+
+Example: IF condition THEN stmt [ELSE stmt]
+
+Loop: Repeats a statement while a condition is true.
+
+Example: WHILE condition DO stmt
