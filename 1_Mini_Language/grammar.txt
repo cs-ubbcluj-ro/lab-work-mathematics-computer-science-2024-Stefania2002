@@ -80,7 +80,9 @@ expression ::= expression "+" term | term
 
 term ::= term "*" factor | factor
 
-factor ::= "(" expression ")" | IDENTIFIER
+factor ::= "(" expression ")" | IDENTIFIER | CONSTANT
+
+constant ::= INTEGER | CHARACTER | STRING
 
 iostmt ::= "READ" | "WRITE" "(" IDENTIFIER ")"
 
