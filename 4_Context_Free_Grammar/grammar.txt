@@ -1,0 +1,76 @@
+# Context-Free Grammar for MiniLang(Pascal)
+
+# Terminals
+%token VAR BEGIN END IF THEN ELSE WHILE DO READ WRITE BOOLEAN CHAR INTEGER REAL ARRAY OF
+%token IDENTIFIER CONSTANT STRING
+%token PLUS MINUS STAR SLASH ASSIGN LT LE EQ NE GE GT
+%token LBRACKET RBRACKET LBRACE RBRACE COLON SEMICOLON PERIOD
+
+# Non-Terminals
+%start program
+
+%%
+
+program: VAR decllist SEMICOLON cmpdstmt PERIOD
+
+decllist: declaration
+        | declaration SEMICOLON decllist
+
+declaration: IDENTIFIER COLON type
+
+type: type1
+    | arraydecl
+
+type1: BOOLEAN
+     | CHAR
+     | INTEGER
+     | REAL
+
+arraydecl: ARRAY LBRACKET CONSTANT RBRACKET OF type1
+
+cmpdstmt: BEGIN stmtlist END
+
+stmtlist: stmt
+        | stmt SEMICOLON stmtlist
+
+stmt: simplstmt
+    | structstmt
+
+simplstmt: assignstmt
+         | iostmt
+
+assignstmt: IDENTIFIER ASSIGN expression
+
+expression: expression PLUS term
+          | term
+
+term: term STAR factor
+    | factor
+
+factor: LBRACKET expression RBRACKET
+      | IDENTIFIER
+      | CONSTANT
+
+constant: INTEGER
+        | STRING
+
+iostmt: READ LBRACKET IDENTIFIER RBRACKET
+      | WRITE LBRACKET IDENTIFIER RBRACKET
+
+structstmt: cmpdstmt
+          | ifstmt
+          | whilestmt
+
+ifstmt: IF condition THEN stmt
+      | IF condition THEN stmt ELSE stmt
+
+whilestmt: WHILE condition DO stmt
+
+condition: expression RELATION expression
+
+RELATION: LT
+        | LE
+        | EQ
+        | NE
+        | GE
+        | GT
