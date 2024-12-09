@@ -2,7 +2,6 @@
 
 # Terminals
 %token VAR BEGIN END IF THEN ELSE WHILE DO READ WRITE BOOLEAN CHAR INTEGER REAL ARRAY OF
-%token IDENTIFIER CONSTANT STRING
 %token PLUS MINUS STAR SLASH ASSIGN LT LE EQ NE GE GT
 %token LBRACKET RBRACKET LBRACE RBRACE COLON SEMICOLON PERIOD
 
@@ -67,6 +66,22 @@ ifstmt: IF condition THEN stmt
 whilestmt: WHILE condition DO stmt
 
 condition: expression RELATION expression
+
+identifier: LETTER IDENT_BODY
+          | LETTER;
+
+IDENT_BODY: IDENT_BODY LETTER_OR_DIGIT
+          | LETTER_OR_DIGIT;
+
+LETTER_OR_DIGIT: LETTER 
+                | DIGIT;
+
+constant: LETTER
+        | DIGIT; 
+
+LETTER: 'A' | 'B' |.....|'Z| 'a'|'b'|....|'z'
+
+DIGIT: '1' |'2'|....
 
 RELATION: LT
         | LE
