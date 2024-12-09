@@ -1,0 +1,9 @@
+FA ::= states "\n" alphabet "\n" transitions "\n" start_state "\n" final_states
+states ::= state {"," state} 
+alphabet ::= symbol {"," symbol}
+transitions ::= transition ";" {transition ";"}
+transition ::= start_state "," input_symbol "->" end_state
+start_state ::= state
+final_states ::= state {"," state}
+state ::= identifier
+symbol ::= character
