@@ -76,7 +76,7 @@ IDENT_BODY: IDENT_BODY LETTER_OR_DIGIT
 LETTER_OR_DIGIT: LETTER 
                 | DIGIT;
 
-constant: LETTER
+constant: IDENT_BODY
         | DIGIT; 
 
 LETTER: 'A' | 'B' |.....|'Z| 'a'|'b'|....|'z'
